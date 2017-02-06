@@ -1,4 +1,4 @@
-package module1.lection3;
+package main.java.module1.lection3;
 
 class AA {
     private int a = 10;
@@ -28,7 +28,6 @@ class CC extends AA.B {
     public CC(AA pa) {
         // super of class B not AA beacuse we extends AA.{!B!} //todo
         pa.super(); // after that error would disappear
-        System.out.println(super.equals(this));
     }
 }
 

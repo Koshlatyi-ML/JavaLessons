@@ -1,4 +1,4 @@
-package module1.lection2;
+package main.java.module1.lection2;
 
 interface IfaceA {
     int a = 10; //implicitly to "public final static"
@@ -26,7 +26,7 @@ class ClassB implements IfaceA {
 }
 
 // implementing 2 or more interfaces with ambiguous default methods restricted
-class ClassC extends ClassB implements IfaceA {
+final class ClassC extends ClassB implements IfaceA {
     // OK - looks "linear"(left to right): first in class
     public void f(){
 
@@ -123,7 +123,6 @@ class E extends D {
 
 public class Seminar {
     // labs and projects in different branches, build & run in terminal
-
 
     //static means there is no this //TODO
     // Permanent generation has class-info(name, address)
