@@ -9,61 +9,61 @@ public class BinaryUtilsTest {
 
     @Test
     public void getPopulationCountZeroTest() {
-        byte  byteZero  = 0;
+        byte byteZero = 0;
         assertEquals(0, BinaryUtils.getPopulationCount(byteZero));
 
         short shortZero = 0;
         assertEquals(0, BinaryUtils.getPopulationCount(shortZero));
 
-        int   intZero   = 0;
+        int intZero = 0;
         assertEquals(0, BinaryUtils.getPopulationCount(intZero));
 
-        long  longZero  = 0l;
+        long longZero = 0l;
         assertEquals(0, BinaryUtils.getPopulationCount(longZero));
     }
 
     @Test
     public void getPopulationCountMaxValueTest() {
-        byte  byteMax  = Byte.MAX_VALUE;
+        byte byteMax = Byte.MAX_VALUE;
         assertEquals(Byte.SIZE - 1, BinaryUtils.getPopulationCount(byteMax));
 
         short shortMax = Short.MAX_VALUE;
         assertEquals(Short.SIZE - 1, BinaryUtils.getPopulationCount(shortMax));
 
-        int   intMax   = Integer.MAX_VALUE;
+        int intMax = Integer.MAX_VALUE;
         assertEquals(Integer.SIZE - 1, BinaryUtils.getPopulationCount(intMax));
 
-        long  longMax  = Long.MAX_VALUE;
+        long longMax = Long.MAX_VALUE;
         assertEquals(Long.SIZE - 1, BinaryUtils.getPopulationCount(longMax));
     }
 
     @Test
     public void getPopulationCountMinValueTest() {
-        byte  byteMin  = Byte.MIN_VALUE;
+        byte byteMin = Byte.MIN_VALUE;
         assertEquals(1, BinaryUtils.getPopulationCount(byteMin));
 
         short shortMin = Short.MIN_VALUE;
         assertEquals(1, BinaryUtils.getPopulationCount(shortMin));
 
-        int   intMin   = Integer.MIN_VALUE;
+        int intMin = Integer.MIN_VALUE;
         assertEquals(1, BinaryUtils.getPopulationCount(intMin));
 
-        long  longMin  = Long.MIN_VALUE;
+        long longMin = Long.MIN_VALUE;
         assertEquals(1, BinaryUtils.getPopulationCount(longMin));
     }
 
     @Test
     public void getPopulationCountSignedOneTest() {
-        byte  byteSignedOne  = -1;
+        byte byteSignedOne = -1;
         assertEquals(Byte.SIZE, BinaryUtils.getPopulationCount(byteSignedOne));
 
         short shortSignedOne = -1;
         assertEquals(Short.SIZE, BinaryUtils.getPopulationCount(shortSignedOne));
 
-        int   intSignedOne   = -1;
+        int intSignedOne = -1;
         assertEquals(Integer.SIZE, BinaryUtils.getPopulationCount(intSignedOne));
 
-        long  longSignedOne  = -1l;
+        long longSignedOne = -1l;
         assertEquals(Long.SIZE, BinaryUtils.getPopulationCount(longSignedOne));
     }
 
@@ -100,4 +100,5 @@ public class BinaryUtilsTest {
             );
         }
     }
+
 }
