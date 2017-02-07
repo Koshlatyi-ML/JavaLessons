@@ -66,9 +66,11 @@ public class GarbCollect {
         pa3 = null;
         System.out.println(rq.poll());
         System.gc();
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
         System.gc();
         System.out.println(rq.poll()); //shows deleted objects
+
+        System.out.println(Integer.toBinaryString(4 << 1));
     }
 }
 

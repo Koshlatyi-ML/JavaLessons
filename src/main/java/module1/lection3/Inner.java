@@ -38,5 +38,6 @@ public class Inner {
         AA pa = new AA();
         AA.B pb = pa.new B();
         CC с = new CC(pa);
+        ((AnonC) pa).fC();
     }
 }
