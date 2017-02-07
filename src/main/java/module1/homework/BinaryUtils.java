@@ -71,9 +71,38 @@ public class BinaryUtils {
         return (int) popCount;
     }
 
+    private static final String OUT_OF_RANGE_MSG
+            = "Position should be a number in range from 1 to 32, both inclusive";
+
+    public static int setBitToZero(int bitNumber, int position) {
+        if (position < 1 || position > 32) {
+            throw new IllegalArgumentException (OUT_OF_RANGE_MSG);
+        }
+
+        int mask = ~(1 << (position - 1));
+
+        return (bitNumber & mask) ;
+    }
+
+    public static int setBitToOne(int bitNumber, int position) {
+        if (position < 1 || position > 32) {
+            throw new IllegalArgumentException(OUT_OF_RANGE_MSG);
+        }
+
+        int mask = 1 << (position - 1);
+
+        return (bitNumber | mask);
+    }
+
     public static void main(String[] args) {
-        byte b = -34;
-        System.out.println(Integer.toBinaryString(0XFFFF));
-        System.out.println(0xFF);
+        //7
+        System.out.println(Integer.toBinaryString(1778689667));
+        System.out.println(Integer.toBinaryString(setBitToOne(1778689667, 7)));
+
+        StringBuffer randValueBinary = new StringBuffer(Integer.toBinaryString(1778689667));
+        System.out.println(Integer.SIZE - 7);
+        randValueBinary.setCharAt(Integer.SIZE - 7, '1');
+        System.out.println(randValueBinary);
+//        correctResult = Integer.parseUnsignedInt(randValueBinary.toString(), 2);
     }
 }

@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 public class BinaryUtilsTest {
 
+    private Random random;
+
     @Test
     public void getPopulationCountZeroTest() {
         byte byteZero = 0;
@@ -69,30 +71,35 @@ public class BinaryUtilsTest {
 
     @Test
     public void getPopulationCountRandomTest() {
-        Random random = new Random();
+        random = new Random();
+        byte byteRand;
+        short shortRand;
+        int intRand;
+        long longRand;
+
         for (int i = 0; i < 10000; i++) {
-            byte byteRand = (byte) random.nextInt(1 << Byte.SIZE + Byte.MIN_VALUE);
+            byteRand = (byte) random.nextInt(1 << Byte.SIZE + Byte.MIN_VALUE);
             assertEquals(
                     "Byte argument mismatch",
                     StringUtils.countMatches(Integer.toBinaryString(byteRand & 0xFF), "1"),
                     BinaryUtils.getPopulationCount(byteRand)
             );
 
-            short shortRand = (short) random.nextInt(1 << Short.SIZE + Short.MIN_VALUE);
+            shortRand = (short) random.nextInt(1 << Short.SIZE + Short.MIN_VALUE);
             assertEquals(
                     "Short argument mismatch",
                     StringUtils.countMatches(Integer.toBinaryString(shortRand & 0xFFFF), "1"),
                     BinaryUtils.getPopulationCount(shortRand)
             );
 
-            int intRand = random.nextInt();
+            intRand = random.nextInt();
             assertEquals(
                     "Int argument mismatch",
                     StringUtils.countMatches(Integer.toBinaryString(intRand), "1"),
                     BinaryUtils.getPopulationCount(intRand)
             );
 
-            long longRand = random.nextLong();
+            longRand = random.nextLong();
             assertEquals(
                     "Long argument mismatch",
                     StringUtils.countMatches(Long.toBinaryString(longRand), "1"),
@@ -101,4 +108,65 @@ public class BinaryUtilsTest {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void setBitToOneLosePositionTest() {
+        BinaryUtils.setBitToOne(1111, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setBitToOneExceedPositionTest() {
+        BinaryUtils.setBitToOne(1111, 33);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setBitToZeroLosePositionTest() {
+        BinaryUtils.setBitToZero(1111, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setBitToZeroExceedPositionTest() {
+        BinaryUtils.setBitToZero(1111, 33);
+    }
+
+    @Test
+    public void setBitToOneFunctionalityTest(){
+        //todo smarter tests
+        assertEquals(1 << 0, BinaryUtils.setBitToOne(0, 1));
+        assertEquals(1 << 9, BinaryUtils.setBitToOne(0, 10));
+        assertEquals(1 << 31, BinaryUtils.setBitToOne(0, 32));
+
+        assertEquals(Integer.MAX_VALUE, BinaryUtils.setBitToOne(Integer.MAX_VALUE, 1));
+        assertEquals(Integer.MAX_VALUE, BinaryUtils.setBitToOne(Integer.MAX_VALUE, 16));
+
+        assertEquals(-1, BinaryUtils.setBitToOne(Integer.MAX_VALUE, 32));
+        assertEquals(Integer.MIN_VALUE, BinaryUtils.setBitToOne(Integer.MIN_VALUE, 32));
+
+        //10111 -> 11111
+        assertEquals(31, BinaryUtils.setBitToOne(23, 4));
+        //1010 -> 1011
+        assertEquals(11, BinaryUtils.setBitToOne(10, 1));
+        //10001110 -> 10011110
+        assertEquals(158, BinaryUtils.setBitToOne(142, 5));
+    }
+
+    @Test
+    public void setBitToZeroFunctionalityTest(){
+        //todo smarter tests
+        assertEquals(0, BinaryUtils.setBitToZero(0, 1));
+        assertEquals(0, BinaryUtils.setBitToZero(0, 10));
+        assertEquals(0, BinaryUtils.setBitToZero(0, 32));
+
+        assertEquals(Integer.MIN_VALUE, BinaryUtils.setBitToZero(Integer.MIN_VALUE, 1));
+        assertEquals(Integer.MIN_VALUE, BinaryUtils.setBitToZero(Integer.MIN_VALUE, 31));
+
+        assertEquals(0, BinaryUtils.setBitToZero(Integer.MIN_VALUE, 32));
+        assertEquals(Integer.MAX_VALUE - 1, BinaryUtils.setBitToZero(Integer.MAX_VALUE, 1));
+
+        //11111 -> 10111
+        assertEquals(23, BinaryUtils.setBitToZero(23, 4));
+        //1011 -> 1010
+        assertEquals(10, BinaryUtils.setBitToZero(11, 1));
+        //10011110 -> 10001110
+        assertEquals(142, BinaryUtils.setBitToZero(158, 5));
+    }
 }
