@@ -2,6 +2,8 @@ package module1.homework;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+
+import java.math.BigInteger;
 import java.util.Random;
 import static org.junit.Assert.*;
 
@@ -141,17 +143,18 @@ public class BinaryUtilsTest {
         assertEquals(-1, BinaryUtils.setBitToOne(Integer.MAX_VALUE, 32));
         assertEquals(Integer.MIN_VALUE, BinaryUtils.setBitToOne(Integer.MIN_VALUE, 32));
 
-        //10111 -> 11111
-        assertEquals(31, BinaryUtils.setBitToOne(23, 4));
-        //1010 -> 1011
-        assertEquals(11, BinaryUtils.setBitToOne(10, 1));
-        //10001110 -> 10011110
-        assertEquals(158, BinaryUtils.setBitToOne(142, 5));
+        for (int i = 0; i < 100; i++) {
+            int randomNumber = new Random().nextInt();
+            int randomPosition = new Random().nextInt(32) + 1;
+            BigInteger bigInteger = new BigInteger(Integer.toString(randomNumber), 10);
+
+            assertEquals(bigInteger.setBit(randomPosition - 1).intValue(),
+                    BinaryUtils.setBitToOne(randomNumber, randomPosition));
+        }
     }
 
     @Test
     public void setBitToZeroFunctionalityTest(){
-        //todo smarter tests
         assertEquals(0, BinaryUtils.setBitToZero(0, 1));
         assertEquals(0, BinaryUtils.setBitToZero(0, 10));
         assertEquals(0, BinaryUtils.setBitToZero(0, 32));
@@ -162,11 +165,13 @@ public class BinaryUtilsTest {
         assertEquals(0, BinaryUtils.setBitToZero(Integer.MIN_VALUE, 32));
         assertEquals(Integer.MAX_VALUE - 1, BinaryUtils.setBitToZero(Integer.MAX_VALUE, 1));
 
-        //11111 -> 10111
-        assertEquals(23, BinaryUtils.setBitToZero(23, 4));
-        //1011 -> 1010
-        assertEquals(10, BinaryUtils.setBitToZero(11, 1));
-        //10011110 -> 10001110
-        assertEquals(142, BinaryUtils.setBitToZero (158, 5));
+        for (int i = 0; i < 100; i++) {
+            int randomNumber = new Random().nextInt();
+            int randomPosition = new Random().nextInt(32) + 1;
+            BigInteger bigInteger = new BigInteger(Integer.toString(randomNumber), 10);
+
+            assertEquals(bigInteger.clearBit(randomPosition - 1).intValue(),
+                    BinaryUtils.setBitToZero(randomNumber, randomPosition));
+        }
     }
 }
