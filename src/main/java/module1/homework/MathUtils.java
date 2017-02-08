@@ -2,10 +2,14 @@ package module1.homework;
 
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 public class MathUtils {
     private static final String NULL_ARGUMENT_MSG = "Method parameters was null";
+
+    // Hide implicit public constructor
+    private MathUtils(){
+        throw new IllegalAccessError("Utility class");
+    }
 
     /**
      * Perform the Karatsuba multiplication
@@ -48,6 +52,41 @@ public class MathUtils {
                         .shiftLeft(halfBitLength));
     }
 
+    private static BigInteger binaryGcdSchema(BigInteger x, BigInteger y) {
+        boolean isEvenX = x.and(BigInteger.ONE).equals(BigInteger.ZERO);
+        boolean isEvenY = y.and(BigInteger.ONE).equals(BigInteger.ZERO);
+
+        BigInteger greaterCommonDivisor = null;
+
+        if (isEvenX && isEvenY) {
+            greaterCommonDivisor = findGCD(x.shiftLeft(1), y.shiftLeft(1)).shiftLeft(1);
+        }
+
+        if (isEvenX && !isEvenY) {
+            greaterCommonDivisor = findGCD(x.shiftLeft(1), y);
+        }
+
+        if (!isEvenX && isEvenY) {
+            greaterCommonDivisor = findGCD(x, y.shiftLeft(1));
+        }
+
+        if (!isEvenX && !isEvenY) {
+            BigInteger greater;
+            BigInteger lower;
+
+            if (x.compareTo(y) >= 0) {
+                greater = x;
+                lower = y;
+            } else {
+                greater = y;
+                lower = x;
+            }
+
+            greaterCommonDivisor = findGCD(greater.subtract(lower).shiftRight(1), lower);
+        }
+        return greaterCommonDivisor;
+    }
+
     /**
      * Find a greatest common divider of two numbers using the
      * binary GCD algorithm.
@@ -62,55 +101,22 @@ public class MathUtils {
             throw new NullPointerException(NULL_ARGUMENT_MSG);
         }
 
-        x = (x.signum() == -1) ? x.negate() : x;
-        y = (y.signum() == -1) ? y.negate() : y;
+        BigInteger xPositive = x.abs();
+        BigInteger yPositive = y.abs();
 
-        if (x.equals(y)) {
-            return x;
+        if (xPositive.equals(yPositive)) {
+            return xPositive;
         }
 
-        if (x.equals(BigInteger.ZERO)) {
-            return y;
+        if (xPositive.equals(BigInteger.ZERO)) {
+            return yPositive;
         }
 
-        if (y.equals(BigInteger.ZERO)) {
-            return x;
+        if (yPositive.equals(BigInteger.ZERO)) {
+            return xPositive;
         }
 
-        boolean isEvenX = x.and(BigInteger.ONE).equals(BigInteger.ZERO);
-        boolean isEvenY = y.and(BigInteger.ONE).equals(BigInteger.ZERO);
-
-        x = (isEvenX) ? x.shiftRight(1) : x;
-        y = (isEvenY) ? y.shiftRight(1) : y;
-
-        BigInteger greaterCommonDivisor = null;
-
-        // if one of arguments is even, but another is not
-        if ((isEvenX && !isEvenY) || (!isEvenX  && isEvenY)) { // todo check braces
-            greaterCommonDivisor = findGCD(x, y);
-        }
-
-        // if both even, the GCD = 2*(x/2, y/2);
-        if (isEvenX && isEvenY) {
-            greaterCommonDivisor = findGCD(x, y).shiftLeft(1);
-        }
-
-        // if both even, the GCD = 2*(x/2, y/2);
-        if (!isEvenX && !isEvenY) {
-            BigInteger greater;
-            BigInteger lower;
-
-            if (x.compareTo(y) >= 0) {
-                greater = x;
-                lower = y;
-            } else {
-                greater = y;
-                lower = x;
-            }
-
-            greaterCommonDivisor = findGCD((greater.subtract(lower).shiftRight(1)), lower);
-        }
-
-        return greaterCommonDivisor;
+        return binaryGcdSchema(xPositive, yPositive);
     }
-    }
+
+}

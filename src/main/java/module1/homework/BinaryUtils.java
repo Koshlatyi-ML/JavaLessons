@@ -1,6 +1,14 @@
 package module1.homework;
 
 public class BinaryUtils {
+    private static final String OUT_OF_RANGE_MSG
+            = "Position should be a number in range from 1 to 32, both inclusive";
+
+    // Hide implicit public constructor
+    private BinaryUtils(){
+        throw new IllegalAccessError("Utility class");
+    }
+
     /**
      * This method counts number of positive bits in binary (also known
      * as Hamming Weight, population count, etc.)
@@ -24,7 +32,7 @@ public class BinaryUtils {
          https://en.wikipedia.org/wiki/Hamming_weight#Efficient_implementation
         */
         for (int i = 0; i < Math.log(Byte.SIZE) / Math.log(2); i++) {
-            popCount = (popCount & masks[i]) + ((popCount >> (1 << i)) & masks[i]);
+            popCount = (popCount & masks[i]) + ((popCount >> (1 << i)) & (masks[i] & 0xFF));
         }
 
         return popCount;
@@ -111,8 +119,6 @@ public class BinaryUtils {
         return (int) popCount;
     }
 
-    private static final String OUT_OF_RANGE_MSG
-            = "Position should be a number in range from 1 to 32, both inclusive";
 
     /**
      * This method sets the specified bit of number to 0.
@@ -132,7 +138,7 @@ public class BinaryUtils {
 
         int mask = ~(1 << (position - 1));
 
-        return (bitNumber & mask) ;
+        return bitNumber & mask ;
     }
 
     /**
@@ -153,6 +159,6 @@ public class BinaryUtils {
 
         int mask = 1 << (position - 1);
 
-        return (bitNumber | mask);
+        return bitNumber | mask;
     }
 }

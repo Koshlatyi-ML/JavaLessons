@@ -18,6 +18,11 @@ public class RsaDecryptor {
     private BigInteger publicExponent;
     private BigInteger secretExponent;
 
+    public RsaDecryptor() {
+        initModulus();
+        initExponents();
+    }
+
     /*
         Generate a modulus - mandatory part of the RSA keys
      */
@@ -60,10 +65,6 @@ public class RsaDecryptor {
         return modulus;
     }
 
-    public RsaDecryptor() {
-        initModulus();
-        initExponents();
-    }
 
     /**
      * Perform decryption of the incoming message, using a secret key.

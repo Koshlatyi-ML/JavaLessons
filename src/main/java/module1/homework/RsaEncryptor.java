@@ -30,7 +30,7 @@ public class RsaEncryptor {
     public byte[] encrypt(String message) {
         byte[] cipher;
 
-        if (message.equals("")) {
+        if ("".equals(message)) {
             cipher = message.getBytes();
         } else {
             cipher = new BigInteger(message.getBytes()).modPow(publicExponent, modulus).toByteArray();
