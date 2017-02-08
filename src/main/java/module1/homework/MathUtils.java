@@ -40,7 +40,60 @@ public class MathUtils {
                         .shiftLeft(halfBitLength));
     }
 
-    public static void main(String[] args) {
-        multiplyKaratsuba(null, new BigInteger(100, new Random()));
+    public static BigInteger findGCD(BigInteger x, BigInteger y) {
+        if (Objects.isNull(x) || Objects.isNull(y)) {
+            throw new NullPointerException(NULL_ARGUMENT_MSG);
+        }
+
+        x = (x.signum() == -1) ? x.negate() : x;
+        y = (x.signum() == -1) ? y.negate() : y;
+
+        if (x.equals(y)) {
+            return x;
+        }
+
+        if (x.equals(BigInteger.ZERO)) {
+            return y;
+        }
+
+        if (y.equals(BigInteger.ZERO)) {
+            return x;
+        }
+
+        boolean isEvenX = x.and(BigInteger.ONE).equals(BigInteger.ZERO);
+        boolean isEvenY = y.and(BigInteger.ONE).equals(BigInteger.ZERO);
+
+        x = (isEvenX) ? x.shiftRight(1) : x;
+        y = (isEvenY) ? y.shiftRight(1) : y;
+
+        BigInteger greaterCommonDivisor = null;
+
+        // if one of arguments is even, but another is not
+        if ((isEvenX && !isEvenY) || (!isEvenX  && isEvenY)) { // todo check braces
+            greaterCommonDivisor = findGCD(x, y);
+        }
+
+        // if both even, the GCD = 2*(x/2, y/2);
+        if (isEvenX && isEvenY) {
+            greaterCommonDivisor = findGCD(x, y).shiftLeft(1);
+        }
+
+        // if both even, the GCD = 2*(x/2, y/2);
+        if (!isEvenX && !isEvenY) {
+            BigInteger greater;
+            BigInteger lower;
+
+            if (x.compareTo(y) >= 0) {
+                greater = x;
+                lower = y;
+            } else {
+                greater = y;
+                lower = x;
+            }
+
+            greaterCommonDivisor = findGCD((greater.subtract(lower).shiftRight(1)), lower);
+        }
+
+        return greaterCommonDivisor;
     }
 }
