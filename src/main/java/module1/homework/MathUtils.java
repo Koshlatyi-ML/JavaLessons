@@ -7,6 +7,14 @@ import java.util.Random;
 public class MathUtils {
     private static final String NULL_ARGUMENT_MSG = "Method parameters was null";
 
+    /**
+     * Perform the Karatsuba multiplication
+     * @see "https://en.wikipedia.org/wiki/Karatsuba_algorithm"
+     *
+     * @param x
+     * @param y
+     * @return result of a multiplication
+     */
     public static BigInteger multiplyKaratsuba(BigInteger x, BigInteger y) {
         if (Objects.isNull(x) || Objects.isNull(y)) {
             throw new NullPointerException(NULL_ARGUMENT_MSG);
@@ -40,6 +48,15 @@ public class MathUtils {
                         .shiftLeft(halfBitLength));
     }
 
+    /**
+     * Find a greatest common divider of two numbers using the
+     * binary GCD algorithm.
+     * @see "https://en.wikipedia.org/wiki/Binary_GCD_algorithm"
+     *
+     * @param x
+     * @param y
+     * @return greatest common divisor
+     */
     public static BigInteger findGCD(BigInteger x, BigInteger y) {
         if (Objects.isNull(x) || Objects.isNull(y)) {
             throw new NullPointerException(NULL_ARGUMENT_MSG);
