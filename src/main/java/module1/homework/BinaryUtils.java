@@ -93,16 +93,4 @@ public class BinaryUtils {
 
         return (bitNumber | mask);
     }
-
-    public static void main(String[] args) {
-        //7
-        System.out.println(Integer.toBinaryString(1778689667));
-        System.out.println(Integer.toBinaryString(setBitToOne(1778689667, 7)));
-
-        StringBuffer randValueBinary = new StringBuffer(Integer.toBinaryString(1778689667));
-        System.out.println(Integer.SIZE - 7);
-        randValueBinary.setCharAt(Integer.SIZE - 7, '1');
-        System.out.println(randValueBinary);
-//        correctResult = Integer.parseUnsignedInt(randValueBinary.toString(), 2);
-    }
 }

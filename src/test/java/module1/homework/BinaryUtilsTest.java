@@ -167,6 +167,6 @@ public class BinaryUtilsTest {
         //1011 -> 1010
         assertEquals(10, BinaryUtils.setBitToZero(11, 1));
         //10011110 -> 10001110
-        assertEquals(142, BinaryUtils.setBitToZero(158, 5));
+        assertEquals(142, BinaryUtils.setBitToZero (158, 5));
     }
 }
