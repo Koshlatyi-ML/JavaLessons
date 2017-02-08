@@ -1,7 +1,5 @@
 package module1.homework;
 
-import com.sun.istack.internal.NotNull;
-
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -73,7 +71,7 @@ public class RsaDecryptor {
      * @param cipher cipher to be encrypted
      * @return decrypted bytes
      */
-    public byte[] decrypt(@NotNull byte[] cipher) {
+    public byte[] decrypt(byte[] cipher) {
         byte[] decoding;
 
         if (cipher.length == 0) {

@@ -63,7 +63,7 @@ public class MathUtils {
         }
 
         x = (x.signum() == -1) ? x.negate() : x;
-        y = (x.signum() == -1) ? y.negate() : y;
+        y = (y.signum() == -1) ? y.negate() : y;
 
         if (x.equals(y)) {
             return x;

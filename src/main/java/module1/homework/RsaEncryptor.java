@@ -1,9 +1,6 @@
 package module1.homework;
 
-import com.sun.istack.internal.NotNull;
-
 import java.math.BigInteger;
-import java.util.Base64;
 import java.util.Objects;
 
 /**
@@ -15,7 +12,7 @@ public class RsaEncryptor {
     private BigInteger modulus;
     private BigInteger publicExponent;
 
-    public RsaEncryptor(@NotNull BigInteger publicExponent, @NotNull BigInteger modulus) {
+    public RsaEncryptor(BigInteger publicExponent, BigInteger modulus) {
         if (Objects.isNull(publicExponent) || Objects.isNull(modulus)) {
             throw new NullPointerException();
         }
@@ -30,7 +27,7 @@ public class RsaEncryptor {
      * @param message message to be encrypted
      * @return encrypted bytes
      */
-    public byte[] encrypt(@NotNull String message) {
+    public byte[] encrypt(String message) {
         byte[] cipher;
 
         if (message.equals("")) {
