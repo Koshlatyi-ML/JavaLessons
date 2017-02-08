@@ -96,4 +96,4 @@ public class MathUtils {
 
         return greaterCommonDivisor;
     }
-}
+    }
