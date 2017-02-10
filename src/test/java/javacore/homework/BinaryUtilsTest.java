@@ -1,4 +1,4 @@
-package module1.homework;
+package javacore.homework;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -79,7 +79,7 @@ public class BinaryUtilsTest {
         int intRand;
         long longRand;
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             byteRand = (byte) random.nextInt(1 << Byte.SIZE + Byte.MIN_VALUE);
             assertEquals(
                     "Byte argument mismatch",

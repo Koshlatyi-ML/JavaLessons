@@ -1,4 +1,4 @@
-package module1.homework;
+package javacore.homework;
 
 import java.math.BigInteger;
 import java.util.Objects;
@@ -12,7 +12,9 @@ public class MathUtils {
     }
 
     /**
-     * Perform the Karatsuba multiplication
+     * Perform the Karatsuba multiplication algorithm:
+     *  suppose x = a*2^n + b and x = c*2^n + d, so the result:
+     *  ac * 2^n + bd + ((a + b)(c + d) - ac - bd) * 2^n/2
      * @see "https://en.wikipedia.org/wiki/Karatsuba_algorithm"
      *
      * @param x
@@ -32,11 +34,9 @@ public class MathUtils {
 
         int halfBitLength = (maxBitLength / 2) + (maxBitLength % 2);
 
-        //x = a*2^n + b;
         BigInteger a = x.shiftRight(halfBitLength);
         BigInteger b = x.subtract(a.shiftLeft(halfBitLength));
 
-        //x = c*2^n + d;
         BigInteger c = y.shiftRight(halfBitLength);
         BigInteger d = y.subtract(c.shiftLeft(halfBitLength));
 
@@ -118,5 +118,4 @@ public class MathUtils {
 
         return binaryGcdSchema(xPositive, yPositive);
     }
-
 }

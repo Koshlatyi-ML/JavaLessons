@@ -1,4 +1,4 @@
-package module1.lection1;
+package javacore.lection1;
 
 public class Seminar {
     public static void main(String[] args) {
@@ -102,7 +102,7 @@ class D {
     {
         d = 90; // Блоки нестатиеской инициализации переносятся в начало конструктора
     }
-    public D(int d) { // public void module1.lection1.D(int d) method not a constructor
+    public D(int d) { // public void javacore.lection1.D(int d) method not a constructor
         d = 100;
     }
 }

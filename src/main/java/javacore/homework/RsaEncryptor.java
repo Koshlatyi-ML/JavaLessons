@@ -1,4 +1,4 @@
-package module1.homework;
+package javacore.homework;
 
 import java.math.BigInteger;
 import java.util.Objects;

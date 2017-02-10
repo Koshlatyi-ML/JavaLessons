@@ -1,4 +1,4 @@
-package module1.homework;
+package javacore.homework;
 
 public class BinaryUtils {
     private static final String OUT_OF_RANGE_MSG

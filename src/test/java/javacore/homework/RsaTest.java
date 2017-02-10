@@ -1,4 +1,4 @@
-package module1.homework;
+package javacore.homework;
 
 import org.junit.Before;
 import org.junit.Test;
