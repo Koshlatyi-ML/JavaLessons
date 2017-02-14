@@ -27,6 +27,10 @@ public class InheritanseException {
     }
 
     public static void main(String[] args) {
+        System.out.println(new Integer(500).hashCode());
+        int f = 5;
+        f = ++f + f++;
+        System.out.println(f);
         AA pa = g();
         try {
             pa.f(0);

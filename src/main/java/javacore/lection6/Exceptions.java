@@ -1,5 +1,10 @@
 package javacore.lection6;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+
 class MyException extends Exception {
     int i;
 
@@ -69,6 +74,8 @@ public class Exceptions {
 //        for (final int i : new int[]{1, 2, 3}) {
 //            System.out.println(i + 1);
 //        }
+
+        System.out.println(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(12)));
 
         label:
         {

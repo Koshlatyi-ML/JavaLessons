@@ -34,6 +34,7 @@ class A3 implements Closeable {
 
 public class ConstrException {
     public static void main(String[] args) {
+
         A2 pa = null;
 
         try {
