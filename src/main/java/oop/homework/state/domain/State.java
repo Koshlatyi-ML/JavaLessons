@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class State implements Territory {
-    List<Region> regions;
-    City capital;
+    private List<Region> regions;
+    private City capital;
 
     State(List<Region> regions, City capital) {
         this.regions = regions;
@@ -16,8 +16,8 @@ public class State implements Territory {
         return capital;
     }
 
-    public void setCapital(City capital) {
-        this.capital = capital;
+    public List<Region> getRegions() {
+        return regions;
     }
 
     public int getRegionsCount() {

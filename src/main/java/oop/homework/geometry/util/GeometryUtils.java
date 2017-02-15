@@ -11,6 +11,14 @@ public class GeometryUtils {
     }
 
     public static double getLineLength(Point a, Point b) {
+        if (a == null) {
+            throw new NullPointerException();
+        }
+
+        if (b == null) {
+            throw new NullPointerException();
+        }
+
         int xScaleLength =  a.getX() - b.getX();
         int yScaleLength =  a.getY() - b.getY();
         return sqrt(pow(xScaleLength, 2) + pow(yScaleLength, 2));
@@ -25,15 +33,6 @@ public class GeometryUtils {
         double secondYMagnitude =  secondVectorTerminal.getY() - secondVectorInitial.getY();
 
         return firstXMagnitude * secondYMagnitude - firstYMagnitude * secondXMagnitude;
-    }
-
-    public static double getAngleOfTwoLines(Point vertex, Point leftRay, Point rightRay) {
-        double leftRayLength = getLineLength(vertex, leftRay);
-        double rightRayLength = getLineLength(vertex, rightRay);
-
-        double raysMultiplication = multiplyVectors(vertex, leftRay, vertex, rightRay);
-
-        return acos(raysMultiplication / (leftRayLength * rightRayLength));
     }
 
     public static boolean isParallel(Point firstVectorInitial, Point firstVectorTerminal,

@@ -15,10 +15,6 @@ public class Region implements Territory {
         return regionCenter;
     }
 
-    public void setRegionCenter(City regionCenter) {
-        this.regionCenter = regionCenter;
-    }
-
     public boolean hasCity(City city) {
         return districts.stream().anyMatch(district -> district.hasCity(city));
     }

@@ -14,7 +14,7 @@ public class District implements Territory {
     }
 
     public boolean hasCity(City city) {
-        return cities.stream().anyMatch(c -> c == city);
+        return cities.stream().anyMatch(c -> c.equals(city));
     }
 
     @Override
