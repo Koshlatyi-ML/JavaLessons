@@ -47,7 +47,7 @@ public class DoublyLinkedList<T> {
         size++;
     }
 
-    public void addLast(T item) {
+    public void add(T item) {
         final Node<T> oldLast = last;
         final Node<T> newNode =  new Node<T>(item, oldLast, null);
         last = newNode;
@@ -67,7 +67,7 @@ public class DoublyLinkedList<T> {
         }
 
         if (index == size) {
-            addLast(item);
+            add(item);
         } else {
             final Node<T> succeeding = getNode(index);
             final Node<T> preceding = succeeding.previous;
