@@ -2,15 +2,22 @@ package oop.homework.grade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 public class GradeBook {
-    private List<SemesterGrade> grades;
+    private List<SemesterGrades> grades = new ArrayList<SemesterGrades>() {{
+        add(new SemesterGrades());
+    }};
 
     private static final int MAX_SEMESTER_COUNT = 12;
 
+    public int getSemestersAmount() {
+        return grades.size();
+    }
+
     public void addExam(Credit exam) {
-        SemesterGrade semester = grades.get(grades.size() - 1);
+        SemesterGrades semester = grades.get(grades.size() - 1);
 
         checkPassed(semester);
 
@@ -25,7 +32,7 @@ public class GradeBook {
 
 
     public void addСredit(Credit exam) {
-        SemesterGrade semester = grades.get(grades.size() - 1);
+        SemesterGrades semester = grades.get(grades.size() - 1);
 
         checkPassed(semester);
 
@@ -38,33 +45,33 @@ public class GradeBook {
         semester.addCredit(exam);
     }
 
-    private SemesterGrade checkFinished(SemesterGrade semester) {
+    private SemesterGrades checkFinished(SemesterGrades semester) {
         if (semester.isFinished() && semester.isPassed()) {
             if (grades.size() == 12) {
                 throw new IllegalStateException("Congratulation! You have already graduated");
             }
 
-            SemesterGrade newGrade = new SemesterGrade();
+            SemesterGrades newGrade = new SemesterGrades();
             semester = newGrade;
 
-            grades.add(new SemesterGrade());
+            grades.add(new SemesterGrades());
         }
         return semester;
     }
 
-    private void checkPassed(SemesterGrade semester) {
+    private void checkPassed(SemesterGrades semester) {
         if (!semester.session.isPassed()) {
             throw new IllegalStateException("Sorry! You has failed your last session.");
         }
 
         if (!semester.isCreditsPassed()) {
-            throw new IllegalArgumentException("Sorry! You has failed your last credits.");
+            throw new IllegalStateException("Sorry! You has failed your last credits.");
         }
     }
 
     public double getAverageMark() {
-        return grades.stream().mapToDouble(SemesterGrade::getAverageMark)
-                .average().getAsDouble();
+        return grades.stream().mapToDouble(SemesterGrades::getAverageMark)
+                .average().orElseThrow(NoSuchElementException::new);
     }
 
     public double getAverageSemesterMark(int semesterIndex) {
@@ -91,7 +98,7 @@ public class GradeBook {
         return grades.get(semesterIndex).getCreditsAverageMark();
     }
 
-    private static class SemesterGrade {
+    private static class SemesterGrades {
         Session session = new Session();
         List<Credit> credits = new ArrayList<>();
 
@@ -139,7 +146,8 @@ public class GradeBook {
             Stream<Credit> creditsStream = credits.stream();
 
             return Stream.concat(sessionStream, creditsStream)
-                    .mapToInt(Credit::getMark).average().getAsDouble();
+                    .mapToInt(Credit::getMark)
+                    .average().orElseThrow(NoSuchElementException::new);
         }
     }
 }

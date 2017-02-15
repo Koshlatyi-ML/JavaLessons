@@ -2,6 +2,7 @@ package oop.homework.grade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Session {
     private List<Credit> exams = new ArrayList<>();
@@ -15,7 +16,7 @@ public class Session {
     public double getAverageMark() {
         return exams.stream()
                     .mapToInt(Credit::getMark)
-                    .average().getAsDouble();
+                    .average().orElseThrow(NoSuchElementException::new);
     }
 
     public void addExam(Credit exam) {
@@ -35,6 +36,6 @@ public class Session {
     }
 
     public boolean isPassed() {
-        return isFinished() && exams.stream().allMatch(Credit::isPassed);
+        return exams.stream().allMatch(Credit::isPassed);
     }
 }

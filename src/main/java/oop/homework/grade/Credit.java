@@ -4,7 +4,7 @@ public class Credit {
     private String title;
     private int mark;
 
-    public Credit(String title, int mark) {
+    Credit(String title, int mark) {
         this.title = title;
         this.mark = mark;
     }
@@ -18,6 +18,6 @@ public class Credit {
     }
 
     public boolean isPassed() {
-        return mark > 60;
+        return mark >= 60;
     }
 }
