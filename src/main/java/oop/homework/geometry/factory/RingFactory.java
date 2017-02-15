@@ -17,7 +17,7 @@ public class RingFactory implements ShapeFactory {
 
     private RingFactory(){}
 
-    public static RingFactory getInstance() {
+    static RingFactory getInstance() {
         return instance;
     }
 

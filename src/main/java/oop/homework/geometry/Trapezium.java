@@ -13,7 +13,8 @@ public class Trapezium extends Shape{
         double bottomBaseLength = GeometryUtils.getLineLength(points[0], points[3]);
 
         double altitudeLength
-                = GeometryUtils.multiplyVectors(points[0], points[1], points[0], points[3])
+                = Math.abs(GeometryUtils.multiplyVectors(points[0], points[1],
+                                                         points[0], points[3]))
                   / GeometryUtils.getLineLength(points[0], points[3]);
 
         return (topBaseLength + bottomBaseLength) / 2.0 * altitudeLength;

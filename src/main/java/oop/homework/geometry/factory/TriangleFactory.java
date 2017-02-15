@@ -18,7 +18,7 @@ public class TriangleFactory implements ShapeFactory {
 
     private TriangleFactory(){}
 
-    public static TriangleFactory getInstance() {
+    static TriangleFactory getInstance() {
         return instance;
     }
 
@@ -32,7 +32,7 @@ public class TriangleFactory implements ShapeFactory {
             throw new IllegalArgumentException(WRONG_POINTS_AMOUNT_MSG);
         }
 
-        if (ArrayUtils.hasDistinctValues(points)) {
+        if (!ArrayUtils.hasDistinctValues(points)) {
             throw new IllegalArgumentException(IDENTICAL_POINTS_MSG);
         }
 

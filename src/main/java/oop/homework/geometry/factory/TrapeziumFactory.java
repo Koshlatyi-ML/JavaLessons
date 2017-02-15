@@ -18,7 +18,7 @@ public class TrapeziumFactory implements ShapeFactory {
     private static final String  NON_PARALLEL_BASES_MSG
             = "points array argument describes non-parallel bases.";
 
-    private static TrapeziumFactory instance = new TrapeziumFactory();
+    static TrapeziumFactory instance = new TrapeziumFactory();
 
     private TrapeziumFactory() {}
 
@@ -36,7 +36,7 @@ public class TrapeziumFactory implements ShapeFactory {
             throw new IllegalArgumentException(WRONG_POINTS_AMOUNT_MSG);
         }
 
-        if (ArrayUtils.hasDistinctValues(points)) {
+        if (!ArrayUtils.hasDistinctValues(points)) {
             throw new IllegalArgumentException(IDENTICAL_POINTS_MSG);
         }
 

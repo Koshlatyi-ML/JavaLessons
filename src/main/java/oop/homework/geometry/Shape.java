@@ -10,6 +10,10 @@ abstract public class Shape {
     abstract public double getArea();
 
     public double add(Shape addend) {
+        if (addend == null) {
+            throw new NullPointerException();
+        }
+
         return this.getArea() + addend.getArea();
     }
 }

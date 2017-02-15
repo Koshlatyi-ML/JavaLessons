@@ -2,9 +2,8 @@ package oop.homework.geometry.util;
 
 import oop.homework.geometry.Point;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.acos;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
+
 
 public class GeometryUtils {
     private GeometryUtils() {
@@ -14,7 +13,7 @@ public class GeometryUtils {
     public static double getLineLength(Point a, Point b) {
         int xScaleLength =  a.getX() - b.getX();
         int yScaleLength =  a.getY() - b.getY();
-        return sqrt((abs(xScaleLength) << 1) + (abs(yScaleLength) << 1));
+        return sqrt(pow(xScaleLength, 2) + pow(yScaleLength, 2));
     }
 
     public static double multiplyVectors(Point firstVectorInitial, Point firstVectorTerminal,
@@ -22,12 +21,10 @@ public class GeometryUtils {
         double firstXMagnitude =  firstVectorTerminal.getX() - firstVectorInitial.getX();
         double firstYMagnitude =  firstVectorTerminal.getY() - firstVectorInitial.getY();
 
-        double secondXMagnitude =  firstVectorTerminal.getX() - firstVectorInitial.getX();
-        double secondYMagnitude =  firstVectorTerminal.getY() - firstVectorInitial.getY();
+        double secondXMagnitude =  secondVectorTerminal.getX() - secondVectorInitial.getX();
+        double secondYMagnitude =  secondVectorTerminal.getY() - secondVectorInitial.getY();
 
-
-
-        return firstXMagnitude * secondXMagnitude + firstYMagnitude * secondYMagnitude;
+        return firstXMagnitude * secondYMagnitude - firstYMagnitude * secondXMagnitude;
     }
 
     public static double getAngleOfTwoLines(Point vertex, Point leftRay, Point rightRay) {
@@ -40,15 +37,9 @@ public class GeometryUtils {
     }
 
     public static boolean isParallel(Point firstVectorInitial, Point firstVectorTerminal,
-                                     Point secondVectorInitial, Point secondVector) {
-        double firstXMagnitude =  firstVectorTerminal.getX() - firstVectorInitial.getX();
-        double firstYMagnitude =  firstVectorTerminal.getY() - firstVectorInitial.getY();
-
-        double secondXMagnitude =  firstVectorTerminal.getX() - firstVectorInitial.getX();
-        double secondYMagnitude =  firstVectorTerminal.getY() - firstVectorInitial.getY();
-
+                                     Point secondVectorInitial, Point secondVectorTerminal) {
         double eps = 0.0001;
-        return abs(firstXMagnitude / secondXMagnitude
-                   - firstYMagnitude / secondYMagnitude) < eps;
+        return abs(multiplyVectors(firstVectorInitial, firstVectorTerminal,
+                                    secondVectorInitial, secondVectorTerminal)) < eps;
     }
 }
