@@ -41,7 +41,7 @@ public class RingTest {
         assertEquals(Math.PI * 13 * 2, ring1.add(ring2), 0.0001);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void addNullTest() {
         Point[] points = {
                 new Point(0,0),

@@ -9,6 +9,10 @@ public class DoublyLinkedList<T> {
     private Node<T> last;
     private int size;
 
+    public int size() {
+        return size;
+    }
+
     public T getFirst() {
         if (Objects.isNull(first)) {
             throw new NoSuchElementException();
@@ -94,6 +98,26 @@ public class DoublyLinkedList<T> {
         oldNode.item = item;
     }
 
+    public boolean contains(Object obj) {
+        boolean isContains = false;
+            if (obj == null) {
+                for (Node<T> x = first; x != null; x = x.next) {
+                    if (x.item == null) {
+                        isContains = true;
+                        break;
+                    }
+                }
+            } else {
+                for (Node<T> x = first; x != null; x = x.next) {
+                    if (obj.equals(x.item)) {
+                        isContains = true;
+                        break;
+                    }
+                }
+            }
+        return isContains;
+    }
+
     public void remove(int index) {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException();
@@ -122,6 +146,29 @@ public class DoublyLinkedList<T> {
         size--;
     }
 
+
+    public boolean tryRemove(Object obj) {
+        int index = 0;
+        if (obj == null) {
+            for (Node<T> x = first; x != null; x = x.next) {
+                if (x.item == null) {
+                    remove(index);
+                    return true;
+                }
+                index++;
+            }
+        } else {
+            for (Node<T> x = first; x != null; x = x.next) {
+                if (obj.equals(x.item)) {
+                    remove(index);
+                    return true;
+                }
+                index++;
+            }
+        }
+
+        return false;
+    }
 
     private Node<T> getNode(int index) {
         Node<T> node;

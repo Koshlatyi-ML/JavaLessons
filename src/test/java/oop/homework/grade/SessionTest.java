@@ -84,7 +84,7 @@ public class SessionTest {
         session.addExam(CreditFactory.createCredit("t2", 70));
         session.addExam(CreditFactory.createCredit("t3", 70));
 
-        assertFalse(session.isPassed());
+        assertTrue(session.isPassed());
     }
 
     @Test

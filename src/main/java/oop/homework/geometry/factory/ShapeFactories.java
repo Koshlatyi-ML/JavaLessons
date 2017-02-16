@@ -12,7 +12,6 @@ public class ShapeFactories {
        put(Figure.TRAPEZIUM, TrapeziumFactory.getInstance());
     }};
 
-
     public static ShapeFactory getFactory(Figure figure) {
         return figureFactoryMap.get(figure);
     }

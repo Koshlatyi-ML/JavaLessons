@@ -25,7 +25,6 @@ public class GradeBook {
             throw new IllegalStateException("Semester is not finished yet." +
                     "Please finish all the credits before");
         }
-
         semester = checkFinished(semester);
         semester.addExam(exam);
     }
