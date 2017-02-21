@@ -10,7 +10,7 @@ import java.lang.ref.ReferenceQueue;
 
 public class LimitedShapeFactory {
     private int limit;
-    private int count;
+    private volatile int count;
 
     private ReferenceQueue<Shape> referenceQueue = new ReferenceQueue<>();
     private Shape strongRef = null;
@@ -26,31 +26,35 @@ public class LimitedShapeFactory {
     }
 
     public Shape createObject(ShapeFactory factory, Point[] points) {
-        Reference<? extends Shape> phantomRef = null;
-        if(count < limit) {
-            synchronized (this) {
-                strongRef = factory.createShape(points);
-                phantomRef = new PhantomReference<>(strongRef, referenceQueue);
-
-                while (!phantomRef.isEnqueued()) {
-                    phantomRef.enqueue();
-                }
-
-                count++;
-                return strongRef;
-            }
-        } else {
-            while (phantomRef == null) {
-                try {
-                    phantomRef = referenceQueue.remove(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            phantomRef.clear();
-            count--;
-            return createObject(factory, points);
+        while (count >= limit) {
+            clearObject();
         }
+
+        Reference<? extends Shape> phantomRef;
+        synchronized (this) {
+            strongRef = factory.createShape(points);
+            phantomRef = new PhantomReference<>(strongRef, referenceQueue);
+
+            while (!phantomRef.isEnqueued()) {
+                phantomRef.enqueue();
+            }
+
+            count++;
+            return strongRef;
+        }
+    }
+
+    private void clearObject() {
+        Reference<? extends Shape> phantomRef = null;
+        while (phantomRef == null) {
+            try {
+                phantomRef = referenceQueue.remove(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        phantomRef.clear();
+        count--;
     }
 }
