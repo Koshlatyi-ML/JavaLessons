@@ -73,12 +73,6 @@ public class Concatenator<T> {
             add(new Base(33));
         }};
 
-        PriorityQueue<Concatenator> queue =  new PriorityQueue<>();
-//        queue.add(null);
-        queue.add(new Concatenator());
-        queue.add(new Concatenator());
-        queue.
-
         List<Derive1> derive1List = new ArrayList<Derive1>() {{
             add(new Derive1(50, 50.01));
             add(new Derive1(70, 70.01));

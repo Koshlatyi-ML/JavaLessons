@@ -6,6 +6,7 @@ import oop.homework.queue.compare.ComparisonStrategy;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Random;
 
 public class PriorityQueue<T> {
     private Object[] heap;
@@ -134,7 +135,7 @@ public class PriorityQueue<T> {
             heap[i] = parentItem;
             i = parentIndex;
         }
-        heap[i] = i;
+        heap[i] = item;
     }
 
     private void siftDown(int i) {
@@ -164,10 +165,76 @@ public class PriorityQueue<T> {
 
     @SuppressWarnings("unchecked")
     private void setStrategy() {
-        if (comparator == null) {
+        if (comparator != null) {
             strategy = new ComparatorStrategy(comparator);
         } else {
             strategy = new ComparableStrategy();
         }
+    }
+
+    public static void main(String[] args) {
+        PriorityQueue<Integer> integerPriorityQueue = new PriorityQueue<>();
+        Random rand = new Random();
+        for(int i=0; i<7; i++){
+            integerPriorityQueue.tryAdd(new Integer(rand.nextInt(100)));
+        }
+        for(int i=0;i<7;i++){
+            Integer in = integerPriorityQueue.poll();
+            System.out.println("Обрабатываем Integer:"+in);
+        }
+
+        //Пример PriorityQueue с компаратором
+        PriorityQueue<Customer> customerPriorityQueue = new PriorityQueue<>(idComparator);
+        addDataToQueue(customerPriorityQueue);
+
+        pollDataFromQueue(customerPriorityQueue);
+
+    }
+
+    //Анонимный класс компаратора
+    public static Comparator<Customer> idComparator = new Comparator<Customer>(){
+
+        @Override
+        public int compare(Customer c1, Customer c2) {
+            return (int) (c1.getId() - c2.getId());
+        }
+    };
+
+    // служебный метод добавления элементов в очередь
+    private static void addDataToQueue(PriorityQueue<Customer> customerPriorityQueue) {
+        Random rand = new Random();
+        for(int i=0; i<7; i++){
+            int id = rand.nextInt(100);
+            customerPriorityQueue.tryAdd(new Customer(id, "Pankaj "+id));
+        }
+    }
+
+    //служебный метод для обработки данных очереди
+    private static void pollDataFromQueue(PriorityQueue<Customer> customerPriorityQueue) {
+        while(true){
+            Customer cust = customerPriorityQueue.poll();
+            if(cust == null) break;
+            System.out.println("Обработка клиента с id=" + cust.getId());
+        }
+    }
+
+    static class Customer {
+
+        private int id;
+        private String name;
+
+        public Customer(int i, String n){
+            this.id=i;
+            this.name=n;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
     }
 }
