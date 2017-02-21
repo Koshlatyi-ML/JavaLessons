@@ -28,9 +28,10 @@ public class LimitedShapeFactory {
     public Shape createObject(ShapeFactory factory, Point[] points) {
         Reference<? extends Shape> phantomRef = null;
         if(count < limit) {
-            synchronized (strongRef) {
-                phantomRef = new PhantomReference<>(factory.createShape(points),
-                                                    referenceQueue);
+            synchronized (this) {
+                strongRef = factory.createShape(points);
+                phantomRef = new PhantomReference<>(strongRef, referenceQueue);
+
                 while (!phantomRef.isEnqueued()) {
                     phantomRef.enqueue();
                 }
