@@ -7,6 +7,8 @@ public class ComparatorStrategy<T> implements ComparisonStrategy<T>{
 
     public ComparatorStrategy(Comparator<? super T> comparator) {
         this.comparator = comparator;
+
+
     }
 
     @Override

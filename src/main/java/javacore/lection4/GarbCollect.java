@@ -3,7 +3,11 @@ package main.java.module1.lection4;
 import java.lang.ref.*;
 
 class Ref_A{
+    String string;
 
+    public Ref_A(String string) {
+        this.string = string;
+    }
 }
 
 public class GarbCollect {
@@ -18,7 +22,7 @@ public class GarbCollect {
 
     public static void main(String[] args) throws InterruptedException {
 //        pa - strong reference (object would NOT be deleted before it has strong ref)
-        Ref_A pa = new Ref_A();
+        Ref_A pa = new Ref_A("object");
 
         /*----------------------------------------------------------------------------*/
         /*--------------------------------SOFT-REFERENCE------------------------------*/
@@ -34,8 +38,9 @@ public class GarbCollect {
 //        Extract object by soft reference
         Ref_A pa1 = rs.get();
         if (pa1 == null) {
-            pa1 = new Ref_A();
+            pa1 = new Ref_A("soft-ref");
         }
+        System.out.println(pa1.string);
 
         /*----------------------------------------------------------------------------*/
         /*--------------------------------WEAK-REFERENCE------------------------------*/
@@ -48,8 +53,9 @@ public class GarbCollect {
 
         Ref_A pa2 = rs.get();
         if (pa2 == null) {
-            pa2 = new Ref_A();
+            pa2 = new Ref_A("weak-ref");
         }
+        System.out.println(pa2.string);
 
         /*----------------------------------------------------------------------------*/
         /*--------------------------------PHANTOM-REFERENCE---------------------------*/
@@ -58,7 +64,7 @@ public class GarbCollect {
 //        If gc find phantom ref, gc will behave like with weak ref
 //        Before this object would be deleted, reference on it would be putted to Queue
 //        This ref is used for controlling the number of objects in system
-        Ref_A pa3 = new Ref_A();
+        Ref_A pa3 = new Ref_A("ph object");
         ReferenceQueue rq = new ReferenceQueue(); // with weak would be putted AFTER
         Reference<Ref_A> rp = new PhantomReference<>(pa3, rq);
         rp.get(); //Always null!!!
@@ -66,11 +72,11 @@ public class GarbCollect {
         pa3 = null;
         System.out.println(rq.poll());
         System.gc();
-//        Thread.sleep(3000);
+        Thread.sleep(1000);
         System.gc();
         System.out.println(rq.poll()); //shows deleted objects
-
-        System.out.println(Integer.toBinaryString(4 << 1));
+        Thread.sleep(1000);
+        System.out.println(rq.poll()); //shows deleted objects
     }
 }
 
