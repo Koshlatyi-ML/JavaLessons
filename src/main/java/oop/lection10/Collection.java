@@ -73,3 +73,4 @@ class B {
         System.out.println(map.get(pa)); //100
     }
 }
+

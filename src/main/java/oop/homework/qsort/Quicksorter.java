@@ -21,15 +21,8 @@ public class Quicksorter<T> {
     }
 
     public List<T> sort(Comparator<? super T> comparator) {
-        if (comparator == null) {
-            throw new IllegalArgumentException();
-        }
-
-        if (!list.isEmpty()) {
-            this.comparator = comparator;
-            quickSort(0, list.size() - 1);
-        }
-
+        this.comparator = comparator;
+        quickSort(0, list.size() - 1);
         return list;
     }
 

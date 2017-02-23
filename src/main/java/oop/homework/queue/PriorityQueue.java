@@ -4,7 +4,9 @@ import oop.homework.queue.compare.ComparableStrategy;
 import oop.homework.queue.compare.ComparatorStrategy;
 import oop.homework.queue.compare.ComparisonStrategy;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Random;
 
 public class PriorityQueue<T> {
     private Object[] heap;
