@@ -32,6 +32,11 @@ public class Seminar {
         double b3 = 2.4;
         double eps = 0.01;
 
+        double pos = Double.POSITIVE_INFINITY; // Max value of double
+        double neg = Double.MIN_VALUE; // Min value of double
+        //casting works for 32 and 64 bit otherwise left side is cutted
+
+
         System.out.println(Math.abs(a3 - b3) < eps);
 
         System.out.println(1.0 / 0.0); // при работе с действ. числами НИКАКИХ Exception не бросается

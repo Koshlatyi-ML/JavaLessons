@@ -7,6 +7,8 @@ import oop.homework.geometry.factory.Figure;
 import oop.homework.geometry.factory.ShapeFactories;
 import oop.homework.geometry.factory.ShapeFactory;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -30,7 +32,6 @@ public class LimitedShapeFactory {
             clearObject();
         }
 
-        Reference<? extends Shape> phantomRef;
         Shape strongRef;
         synchronized (this) {
             strongRef = factory.createShape(points);
@@ -51,5 +52,36 @@ public class LimitedShapeFactory {
 
     public ReferenceQueue<Shape> getReferenceQueue() {
         return referenceQueue;
+    }
+
+
+    public static long getCount(LimitedShapeFactory factory) {
+        long result = -1;
+        ReferenceQueue<Shape> referenceQueue = factory.getReferenceQueue();
+
+
+        try {
+            Field queueLength = referenceQueue.getClass()
+                    .getDeclaredField("queueLength");
+            queueLength.setAccessible(true);
+            result =  queueLength.getLong(referenceQueue);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        List<StringBuffer> phantomReferences
+                = new ArrayList<>();
+        ReferenceQueue<StringBuffer> queue = new ReferenceQueue<>();
+
+
+        while (true) {
+            phantomReferences.add(new StringBuffer("vladik"));
+        }
     }
 }

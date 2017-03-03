@@ -33,11 +33,14 @@ public class Reflect {
 
         System.out.println(c1 == c2 && c2 == c3);
 
+        // DeclaredFields - all fields (public, pritected, private) of declared class
+        // Fields - all PUBLIC fields of the hierarchy
         Field field = c1.getDeclaredField("value");
         System.out.println(field.getType());
         System.out.println(Modifier.toString(field.getModifiers()));
 
         field.setAccessible(true);
+        // for static object "null"
         field.set(pa, 666);
     }
 }

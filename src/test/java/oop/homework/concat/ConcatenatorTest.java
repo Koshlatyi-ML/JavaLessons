@@ -9,8 +9,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ConcatenatorTest {
-
-
     class Base {
         int i;
 

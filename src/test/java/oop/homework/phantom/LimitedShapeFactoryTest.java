@@ -45,5 +45,4 @@ public class LimitedShapeFactoryTest {
             assertTrue(getCount(factory) <= 5);
         }
     }
-
 }

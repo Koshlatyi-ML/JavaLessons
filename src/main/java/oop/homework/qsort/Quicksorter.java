@@ -1,6 +1,7 @@
 package oop.homework.qsort;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -21,8 +22,15 @@ public class Quicksorter<T> {
     }
 
     public List<T> sort(Comparator<? super T> comparator) {
-        this.comparator = comparator;
-        quickSort(0, list.size() - 1);
+        if (comparator == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (!list.isEmpty()) {
+            this.comparator = comparator;
+            quickSort(0, list.size() - 1);
+        }
+
         return list;
     }
 
@@ -55,19 +63,13 @@ public class Quicksorter<T> {
             }
 
             if (left <= right) {
-                swap(left, right);
+                Collections.swap(list, left, right);
                 left++;
                 right--;
             }
         }
 
         return left;
-    }
-
-    private void swap(int i, int j) {
-        T temp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, temp);
     }
 
     private T getMedianOfThree(int begin, int end) {
