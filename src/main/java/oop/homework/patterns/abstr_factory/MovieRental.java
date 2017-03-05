@@ -3,7 +3,7 @@ package oop.homework.patterns.abstr_factory;
 import java.util.*;
 
 public class MovieRental {
-    private static Map<Movie, List<Language>> moviesCatalog
+    private Map<Movie, List<Language>> moviesCatalog
             = new HashMap<Movie, List<Language>> () {{
                 put(new Movie("Interstellar"), new ArrayList<Language>() {{
                     add(Language.ENGLISH);
@@ -21,7 +21,13 @@ public class MovieRental {
                 }});
     }};
 
-    public static Movie rentMovie(String title, Language language) {
+    private static MovieRental INSTANCE = new MovieRental();
+
+    public static MovieRental getInstance() {
+        return INSTANCE;
+    }
+
+    public Movie rentMovie(String title, Language language) {
         Movie movie = moviesCatalog.keySet().stream()
                 .filter(m -> title.equals(m.getTitle()))
                 .findAny().orElseThrow(NoSuchElementException::new);
