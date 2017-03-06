@@ -31,6 +31,10 @@ public class MovieRental {
         Movie movie = moviesCatalog.keySet().stream()
                 .filter(m -> title.equals(m.getTitle()))
                 .findAny().orElseThrow(NoSuchElementException::new);
+
+        if (!moviesCatalog.get(movie).contains(language)) {
+            throw new NoSuchElementException();
+        }
         movie.setLocalization(language);
         return movie;
     }

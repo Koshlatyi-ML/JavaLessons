@@ -21,7 +21,18 @@ public class Movie{
         return title;
     }
 
+    public Soundtrack getSoundtrack() {
+        return soundtrack;
+    }
+
+    public Subtitles getSubtitles() {
+        return subtitles;
+    }
+
     public void setLocalization(Language language) {
+        if (language == null) {
+            throw new IllegalArgumentException();
+        }
         this.subtitles.setLanguage(language);
         this.soundtrack.setLanguage(language);
     }
@@ -45,6 +56,10 @@ public class Movie{
         public void setLanguage(Language language) {
             this.language = language;
         }
+
+        public Language getLanguage() {
+            return language;
+        }
     }
 
     static class Subtitles {
@@ -52,6 +67,10 @@ public class Movie{
 
         public void setLanguage(Language language) {
             this.language = language;
+        }
+
+        public Language getLanguage() {
+            return language;
         }
     }
 }
